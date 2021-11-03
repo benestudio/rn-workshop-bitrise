@@ -6,6 +6,8 @@ This repository is a sample application created for the workshop about using Rea
 
 ## Development
 
+
+
 This project uses `yarn` and is written in Typescript
 
 Install dependencies and run Expo locally:
