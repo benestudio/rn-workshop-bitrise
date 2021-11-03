@@ -66,4 +66,18 @@ describe('App', () => {
       )
     );
   });
+
+  it('should halve the available questions', async () => {
+    const { findAllByTestId, getByTestId } = render(<App />);
+    const allAnwsers = await findAllByTestId(/answer-[0-9]/);
+    expect(allAnwsers).toHaveLength(4);
+
+    const button = getByTestId('thanos');
+
+    fireEvent.press(button);
+    fireEvent.press(button);
+
+    const remainingAnswers = await findAllByTestId(/answer-[0-9]/);
+    expect(remainingAnswers).toHaveLength(2);
+  });
 });

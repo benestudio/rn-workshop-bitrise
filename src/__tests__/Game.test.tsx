@@ -10,6 +10,8 @@ const props: IProps = {
   questions: [],
   handleAnswerSelected: jest.fn(),
   onResetGame: jest.fn(),
+  isLifeLineUsed: false,
+  setIsLifeLineUsed: jest.fn(),
 };
 
 jest.mock('../utils/helpers', () => {

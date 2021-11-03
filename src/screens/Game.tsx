@@ -13,6 +13,8 @@ export interface IProps {
   onResetGame: () => void;
   isLoading: boolean;
   lives: number;
+  isLifeLineUsed: boolean;
+  setIsLifeLineUsed: (val: boolean) => void;
 }
 
 const Game = ({
@@ -22,6 +24,8 @@ const Game = ({
   onResetGame,
   isLoading,
   lives,
+  isLifeLineUsed,
+  setIsLifeLineUsed,
 }: IProps) => {
   const currentQuestion =
     questions.length > 0 ? questions[currentIndex] : undefined;
@@ -37,6 +41,20 @@ const Game = ({
       ]);
     }
   }, [currentQuestion]);
+
+  const handleLifelinePressed = useCallback(() => {
+    if (isLifeLineUsed) return;
+
+    if (currentQuestion) {
+      const toBeRemoved = shuffle(currentQuestion.incorrect_answers).slice(
+        0,
+        2
+      );
+
+      setAnswers((prev) => prev.filter((q) => !toBeRemoved.includes(q)));
+      setIsLifeLineUsed(true);
+    }
+  }, [currentQuestion, isLifeLineUsed]);
 
   return (
     <>
@@ -67,7 +85,14 @@ const Game = ({
             />
           ))}
 
-        <Button fullWidth={false} inverted text="50 / 50" testID="thanos" />
+        <Button
+          fullWidth={false}
+          inverted
+          text="50 / 50"
+          onPress={handleLifelinePressed}
+          testID="thanos"
+          disabled={isLifeLineUsed || currentQuestion?.type === 'boolean'}
+        />
       </View>
 
       {isLoading || !currentQuestion ? (

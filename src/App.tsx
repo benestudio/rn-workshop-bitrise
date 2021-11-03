@@ -6,6 +6,8 @@ import { Game, EndGame } from './screens';
 
 export default function App() {
   const { questions, reload, isLoading } = useQuiz();
+  const [isLifeLineUsed, setIsLifeLineUsed] = useState(false);
+
   const [lives, setLives] = useState(maxLives);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
@@ -25,6 +27,7 @@ export default function App() {
     setLives(maxLives);
     setCurrentQuestionIndex(0);
     reload();
+    setIsLifeLineUsed(false);
   };
 
   return (
@@ -37,6 +40,8 @@ export default function App() {
           onResetGame={handleResetGame}
           isLoading={isLoading}
           lives={lives}
+          isLifeLineUsed={isLifeLineUsed}
+          setIsLifeLineUsed={setIsLifeLineUsed}
         />
       )}
 
