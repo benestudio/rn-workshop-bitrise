@@ -13,6 +13,13 @@ const props: IProps = {
     onResetGame: jest.fn(),
 }
 
+jest.mock('../utils/helpers', () => {
+    const original = jest.requireActual('../utils/helpers');
+    return {
+        ...original,
+        shuffle: jest.fn((arr) => arr),
+    }
+})
 describe('Game', () => {
     it('should match snapshot by default', () => {
         const { toJSON } = render(<Game {...props} />);
