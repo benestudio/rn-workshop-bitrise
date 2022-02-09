@@ -20,3 +20,4 @@ yarn test
 # or
 yarn test:watch
 ```
+fetch the user expo
